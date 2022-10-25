@@ -16,7 +16,7 @@ const Login = () => {
                 ></div>
 
                 <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
-                  <h3 class="pt-4 text-2xl text-center">LogIn Your Account!</h3>
+                  <h3 class="pt-4 text-2xl text-center">Login Your Account!</h3>
                   <form>
                     <div className="mb-1 sm:mb-2">
                       <label
@@ -74,7 +74,7 @@ const Login = () => {
                         type="submit"
                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white btn btn-primary"
                       >
-                        LogIn
+                        Login
                       </button>
                     </div>
                     <p className="text-xs text-gray-600 sm:text-sm">

@@ -71,7 +71,7 @@ const Header = () => {
                     aria-label="Sign up"
                     title="Sign up"
                   >
-                    LogIn
+                    Login
                   </Link>
                 </li>
               </ul>
@@ -183,7 +183,7 @@ const Header = () => {
                               aria-label="Sign up"
                               title="Sign up"
                             >
-                              LogIn
+                              Login
                             </Link>
                           </li>
                         </ul>

@@ -9,24 +9,40 @@ import Register from "../components/Register/Register";
 import Main from "../layout/Main";
 
 export const router = createBrowserRouter([
-    {path: '/', element: <Main></Main>, errorElement: <ErrorPage></ErrorPage>, children: [
-        {
-            path: '/', element: <Home></Home>
-        },
-        {
-            path: '/courses', element: <Courses></Courses>
-        },
-        {
-            path: '/faq', element: <Faq></Faq>
-        },
-        {
-            path: '/blog', element: <Blog></Blog>
-        },
-        {
-            path: '/login', element: <Login></Login>
-        },
-        {
-            path: '/register', element: <Register></Register>
-        }
-    ]}
-])
+  {
+    path: "/",
+    element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+        loader: () => fetch("http://localhost:5000/about"),
+      },
+      {
+        path: "/home",
+        element: <Home></Home>,
+      },
+      {
+        path: "/courses",
+        element: <Courses></Courses>,
+      },
+      {
+        path: "/faq",
+        element: <Faq></Faq>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+    ],
+  },
+]);

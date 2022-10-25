@@ -4,7 +4,7 @@ import Advantage from '../Advantage/Advantage';
 
 const Home = () => {
     const data = useLoaderData();
-    console.log(data);
+    // console.log(data);
     return (
       <div>
         <div className="relative">

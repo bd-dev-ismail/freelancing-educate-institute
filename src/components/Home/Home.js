@@ -17,7 +17,9 @@ const Home = () => {
             <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
               <div className="flex flex-col items-center justify-between xl:flex-row">
                 <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-                  <p className='badge badge-primary'>Best IT Training Institute in the country</p>
+                  <p className="badge badge-secondary">
+                    Best IT Training Institute in the country
+                  </p>
                   <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl sm:leading-none">
                     Let the career <br className="hidden md:block" />
                     begin Confidence{" "}
@@ -32,7 +34,7 @@ const Home = () => {
                   <Link
                     to="/courses"
                     aria-label=""
-                    className="inline-flex items-center font-semibold btn btn-link"
+                    className="inline-flex items-center text-secondary-focus font-semibold btn btn-link"
                   >
                     Our Courses
                     <svg
@@ -122,10 +124,69 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto gap-4' style={{marginTop: '-4rem'}}>
-            {
-                data.map(about => <Advantage about={about} key={about.id}></Advantage>)
-            }
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto gap-4 mt-[-30px] lg:mt-[-50px]">
+          {data.map((about) => (
+            <Advantage about={about} key={about.id}></Advantage>
+          ))}
+        </div>
+        <div className="success-section">
+          <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+            <div className="flex flex-col items-center justify-between lg:flex-row">
+              <div className="mb-10 lg:max-w-lg lg:pr-5 lg:mb-0">
+                <div className="max-w-xl mb-6">
+                  <div>
+                    <p className="inline-block px-3 py-px mb-4 text-xs font-semibold badge badge-primary">
+                      13 years of success
+                    </p>
+                  </div>
+                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+                    Making IT Expert Trusted
+                    <br className="hidden md:block" />
+                    organization{" "}
+                    <span className="inline-block text-deep-purple-accent-400">
+                      in the world
+                    </span>
+                  </h2>
+                  <p className="text-base text-gray-700 md:text-lg">
+                    Freelancing Educare Institute is at your side to keep
+                    yourself updated with modern technology. Be it IT sector or
+                    non-IT sector, IT experts are now in good demand everywhere.
+                    That is why we have been creating IT experts for 13 years
+                    with updated curriculum, experienced mentors and modern
+                    labs. As a result of this, we have found more than 50
+                    thousand successful faces, who have become self-reliant and
+                    created employment for more people. And the success of these
+                    students is the inspiration for our journey. We believe that
+                    every human being is talented, and it is our responsibility
+                    to develop your talent. All that is required is your
+                    interest and regular practice.
+                  </p>
+                </div>
+                <div className="flex flex-col items-center md:flex-row">
+                  <Link
+                   to="/courses"
+                    className="btn btn-outline btn-secondary mr-3"
+                  >
+                    Our Courses
+                  </Link>
+                  <Link
+                   to="/"
+                    aria-label=""
+                    className="btn btn-outline btn-primary mt-2 md:mt-0"
+                  >
+                    Get 15% discount
+                  </Link>
+                </div>
+              </div>
+              <div className="relative lg:w-1/2">
+                <img
+                  className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
+                  src="https://i.ibb.co/YRjVKY9/02-default.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

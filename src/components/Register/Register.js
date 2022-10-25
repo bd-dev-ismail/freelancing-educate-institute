@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import login from '../../assets/login.webp'
 const Register = () => {
     return (
       <div>
@@ -9,11 +9,13 @@ const Register = () => {
             <div class="flex justify-center px-6 my-12">
               <div class="w-full xl:w-3/4 lg:w-11/12 flex">
                 <div
-                  class="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
+                  class="w-full h-auto bg-gray-400 hidden lg:block lg:w-full bg-cover rounded-l-lg"
                   style={{
-                    backgroundImage: `url('https://source.unsplash.com/Mv9hjnEUHR4/600x800')`,
+                    backgroundImage: `url(${login})`,
                   }}
-                ></div>
+                >
+                    
+                </div>
 
                 <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
                   <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
@@ -25,7 +27,7 @@ const Register = () => {
                       >
                         Full Name
                       </label>
-                      
+
                       <input
                         placeholder="Enter Your Full Name"
                         required
@@ -35,7 +37,7 @@ const Register = () => {
                         name="fullName"
                       />
                     </div>
-                
+
                     <div className="mb-1 sm:mb-2">
                       <label
                         htmlFor="photoURL"

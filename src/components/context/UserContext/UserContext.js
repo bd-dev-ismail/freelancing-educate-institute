@@ -8,8 +8,6 @@ const auth = getAuth(app);
 export const AuthContext = createContext();
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
-    const [name , setName] = useState('');
-    const [photoURL, setPhotoURL] = useState('');
     const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
@@ -23,18 +21,21 @@ const UserContext = ({children}) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password);
     }
-    //update profile
-    const updateUserProfile = (name, photoURL)=>{
-        setLoading(true)
-        return updateProfile(auth.currentUser, {displayName: name, photoURL: photoURL});
-    }
+    
+
     //login with google
     const loginGoogle = ()=>{
+        setLoading(true)
         return signInWithPopup(auth, googleProvider);
     }
     //login with github
     const loginGithub = ()=>{
+        setLoading(true)
         return signInWithPopup(auth, githubProvider);
+    }
+    //update profile
+    const updateUserProfile  =(profile)=>{
+        return updateProfile(auth.currentUser, profile)
     }
     //logout
     const logout = ()=>{
@@ -44,29 +45,26 @@ const UserContext = ({children}) => {
     //observer
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
-            
+            if(currentUser == null || currentUser.email){
                 setUser(currentUser);
+            }
+                
        
             
             setLoading(false);
         })
-        return () => {
-            unsubscribe();
-        }
+        return () => unsubscribe();
     },[])
     const authInfo = {
       user,
       loading,
-      name, 
-      photoURL,
-      setPhotoURL,
-      setName,
+
       register,
       login,
-      updateUserProfile,
       logout,
       loginGoogle,
       loginGithub,
+      updateUserProfile,
     };
     return (
             <AuthContext.Provider value={authInfo}>

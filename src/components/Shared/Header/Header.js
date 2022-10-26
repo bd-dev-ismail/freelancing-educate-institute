@@ -4,18 +4,31 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import logo from '../../../assets/logo.png';
 import { AuthContext } from '../../context/UserContext/UserContext';
+import { FaUser, IconName } from "react-icons/fa";
+import { useEffect } from 'react';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [theme, setTheme] = useState("")
     const { user, logout } = useContext(AuthContext);
     const handalLogout = ()=>{
       logout()
       .then(()=>{toast.warning('Successfully Logout', {autoClose: 500})})
       .catch(error=>{toast.error(error.message)})
     }
-
+    const toogleTheme = ()=>{
+      if (theme === "dark" ) {
+        setTheme("");
+      } else {
+        setTheme("dark");
+      }
+      
+    }
+    useEffect(() => {
+      document.body.className = theme;
+    }, [theme]);
     return (
       <div>
-        <div className="bg-indigo-700">
+        <div className="bg-indigo-700 dark:bg-black">
           <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
             <div className="relative flex items-center justify-between">
               <Link
@@ -79,22 +92,31 @@ const Header = () => {
                     <li>
                       <Link
                         to="/"
+                        onClick={handalLogout}
                         className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-fuchsia-600 focus:shadow-outline focus:outline-none"
                         aria-label="Sign up"
                         title="Sign up"
                       >
-                        <button onClick={handalLogout}>Logout</button>
+                        Logout
                       </Link>
                     </li>
                     <div class="w-8 relative group">
-                      <img
-                        src={user.photoURL || "https://placeimg.com/192/192/people"}
-                        alt=".."
-                        className="rounded-full"
-                      />
-                      <div class="opacity-0 group-hover:opacity-100 duration-300 absolute bottom-2 inset-x-[90px] bottom-0 flex justify-center items-end  text-xl w-[150px]  text-white font-semibold">
+                      {user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt=".."
+                          className="rounded-full cursor-pointer"
+                          title={user.displayName}
+                        />
+                      ) : (
+                        <FaUser
+                          className="w-12 h-8 text-white cursor-pointer"
+                          title={user.displayName}
+                        />
+                      )}
+                      {/* <div class="opacity-0 group-hover:opacity-100 duration-300 absolute bottom-2 inset-x-[90px] bottom-0 flex justify-center items-end  text-xl w-[150px]  text-white font-semibold">
                         {user?.displayName}
-                      </div>
+                      </div> */}
                     </div>
                   </>
                 ) : (
@@ -109,6 +131,9 @@ const Header = () => {
                     </Link>
                   </li>
                 )}
+                <li>
+                  <button onClick={()=> toogleTheme()} className='btn'>Toggle Theme</button>
+                </li>
               </ul>
               <div className="lg:hidden">
                 <button

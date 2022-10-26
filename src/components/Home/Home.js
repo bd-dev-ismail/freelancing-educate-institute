@@ -56,26 +56,26 @@ const Home = () => {
         .catch((error) => toast.error(error.message, { autoClose: 500 }));
     };
     return (
-      <div>
+      <div className="dark:bg-black">
         <div className="relative">
           <img
             src="https://i.ibb.co/60ydNdw/hero-1-jpg.webp"
             className="absolute inset-0 object-cover w-full h-full"
             alt=""
           />
-          <div className="relative bg-gray-900 bg-opacity-75">
+          <div className="relative bg-gray-900  bg-opacity-75">
             <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
               <div className="flex flex-col items-center justify-between xl:flex-row">
                 <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-                  <p className="badge badge-secondary">
+                  <p className="badge badge-secondary dark:badge-primary">
                     Best IT Training Institute in the country
                   </p>
-                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl sm:leading-none">
+                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight  text-white sm:text-4xl lg:text-5xl sm:leading-none ">
                     Let the career <br className="hidden md:block" />
                     begin Confidence{" "}
                     <span className="text-teal-accent-400">in skills</span>
                   </h2>
-                  <p className="max-w-xl mb-4 text-base text-gray-400 md:text-lg">
+                  <p className="max-w-xl mb-4  text-gray-400  md:text-lg">
                     With experienced mentors and updated curriculum, Freelancing
                     Educare Institute is ready to advance your career. Choose
                     your favorite course today from our more than 30 trendy
@@ -84,7 +84,7 @@ const Home = () => {
                   <Link
                     to="/courses"
                     aria-label=""
-                    className="inline-flex items-center text-secondary-focus font-semibold btn btn-link"
+                    className="inline-flex items-center dark:text-primary-focus text-secondary-focus font-semibold btn btn-link"
                   >
                     Our Courses
                     <svg
@@ -97,7 +97,7 @@ const Home = () => {
                   </Link>
                 </div>
                 <div className="w-full max-w-xl xl:px-8 xl:w-5/12">
-                  <div className="bg-white rounded shadow-2xl p-7 sm:p-10">
+                  <div className="bg-white dark:bg-black dark:text-white rounded shadow-2xl p-7 sm:p-10">
                     <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                       Login Your Account
                     </h3>
@@ -160,7 +160,7 @@ const Home = () => {
                           Login
                         </button>
                       </div>
-                      <p className="text-xs text-gray-600 sm:text-sm">
+                      <p className="text-xs text-gray-600 dark:text-white sm:text-sm">
                         New In Freelancing Educare?{" "}
                         <Link to="/register" className="btn btn-link">
                           Create an account
@@ -170,14 +170,14 @@ const Home = () => {
                     <div className="my-3">
                       <button
                         onClick={handalGoogle}
-                        className="btn btn-outline btn-secondary"
+                        className="btn btn-outline btn-secondary  "
                         style={{ marginRight: "5px" }}
                       >
                         Login With Google
                       </button>
                       <button
                         onClick={handalGithub}
-                        className="btn btn-outline"
+                        className="btn btn-outline btn-primary"
                       >
                         Login With Github
                       </button>
@@ -188,7 +188,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto gap-4 mt-[-30px] lg:mt-[-50px]">
+        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto gap-4 mt-[-30px] lg:mt-[-50px]">
           {data.map((about) => (
             <Advantage about={about} key={about.id}></Advantage>
           ))}
@@ -203,15 +203,15 @@ const Home = () => {
                       13 years of success
                     </p>
                   </div>
-                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight dark:text-white text-gray-900 sm:text-4xl sm:leading-none">
                     Making IT Expert Trusted
                     <br className="hidden md:block" />
                     organization{" "}
-                    <span className="inline-block text-deep-purple-accent-400">
+                    <span className="inline-block text-deep-purple-accent-400 dark:text-white">
                       in the world
                     </span>
                   </h2>
-                  <p className="text-base text-gray-700 md:text-lg">
+                  <p className="text-base dark:text-white text-gray-700 md:text-lg">
                     Freelancing Educare Institute is at your side to keep
                     yourself updated with modern technology. Be it IT sector or
                     non-IT sector, IT experts are now in good demand everywhere.

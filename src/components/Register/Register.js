@@ -8,16 +8,14 @@ import login from '../../assets/login.webp'
 import { AuthContext } from '../context/UserContext/UserContext';
 const Register = () => {
   const [error, setError] = useState('');
+  const [name, setName] = useState('');
+  const [photoURL, setPhotoURL] = useState('');
   const {
-    user,
     register,
-    updateUserProfile,
+
     loginGithub,
     loginGoogle,
-    name,
-    setName,
-    setPhotoURL,
-    photoURL,
+    updateUserProfile,
   } = useContext(AuthContext);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -47,18 +45,16 @@ const Register = () => {
       });
       return; 
     }
-    
-      console.log(name, photoURL, email, password, confrimPassword);
       register(email, password)
       .then(result=>{
         const user = result.user;
         console.log(user);
-        // updateUserProfile({name, photoURL})
-        //   .then(() => {})
-        //   .catch((error) => toast.error(error.message), { autoClose: 500 });
-        navigate(from, {replace: true});
+       
+      //  navigate(from, { replace: true });
         form.reset();
         setError('');
+        // handalUpdateUserProfile(name, photoURL);
+        // const profile = {name, photoURL}
         toast.success('Your account create successfully', {autoClose: 500})
       })
       .catch(error=>{
@@ -66,15 +62,20 @@ const Register = () => {
         toast.error(error.message, {autoClose: 500})
       })
   }
-  useEffect(()=>{
-    if(user && user.uid){
-      updateUserProfile(name, photoURL)
-      .then(()=>{
-      navigate(from, { replace: true });
-      })
-      .catch((error)=> toast.error(error.message,{autoClose: 500}))
-    }
-  },[user, from])
+  
+  
+ useEffect(()=>{
+     const profile = {
+       displayName: name,
+       photoURL: photoURL,
+     };
+     updateUserProfile(profile)
+       .then(() => {
+         navigate(from, { replace: true });
+       })
+       .catch((error) => console.error(error));
+ },[from, navigate, updateUserProfile])
+  
     const handalGoogle = () => {
       loginGoogle()
         .then((result) => {
@@ -109,7 +110,7 @@ const Register = () => {
                   }}
                 ></div>
 
-                <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
+                <div class="w-full lg:w-7/12 dark:bg-black dark:text-white bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
                   <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
                   <form onSubmit={handalRegister}>
                     <div className="mb-1 sm:mb-2">
@@ -205,7 +206,7 @@ const Register = () => {
                         Register
                       </button>
                     </div>
-                    <p className="text-xs text-gray-600 sm:text-sm">
+                    <p className="text-xs dark:text-white text-gray-600 sm:text-sm">
                       All ready have an account?{" "}
                       <Link to="/login" className="btn btn-link">
                         Please Login
@@ -220,7 +221,7 @@ const Register = () => {
                     >
                       Login With Google
                     </button>
-                    <button onClick={handalGithub} className="btn btn-outline">
+                    <button onClick={handalGithub} className="btn btn-outline btn-primary">
                       Login With Github
                     </button>
                   </div>

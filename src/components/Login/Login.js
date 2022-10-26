@@ -7,9 +7,10 @@ import { AuthContext } from '../context/UserContext/UserContext';
 const Login = () => {
   const [error, setError] = useState('')
   const { login, loginGoogle , loginGithub} = useContext(AuthContext);
+  const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const navigate = useNavigate();
+  
   const handalLogin = (e)=>{
     e.preventDefault();
     const form = e.target;
@@ -68,7 +69,7 @@ const Login = () => {
                   }}
                 ></div>
 
-                <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
+                <div class="w-full lg:w-7/12 dark:bg-black dark:text-white bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
                   <h3 class="pt-4 text-2xl text-center">Login Your Account!</h3>
                   <form onSubmit={handalLogin}>
                     <div className="mb-1 sm:mb-2">
@@ -128,7 +129,7 @@ const Login = () => {
                         Login
                       </button>
                     </div>
-                    <p className="text-xs text-gray-600 sm:text-sm">
+                    <p className="text-xs dark:text-white text-gray-600 sm:text-sm">
                       New in Freelancing Educare?{" "}
                       <Link to="/register" className="btn btn-link">
                         Create an account
@@ -143,7 +144,7 @@ const Login = () => {
                     >
                       Login With Google
                     </button>
-                    <button onClick={handalGithub} className="btn btn-outline">
+                    <button onClick={handalGithub} className="btn btn-outline btn-primary">
                       Login With Github
                     </button>
                   </div>

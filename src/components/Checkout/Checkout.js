@@ -7,7 +7,7 @@ const Checkout = () => {
     const {name, course_fees, img} = cart;
     return (
       <div>
-        <div className="flex min-h-[60vh] items-start justify-center bg-gray-100 text-gray-900">
+        <div className="flex min-h-[60vh] items-start justify-center dark:text-white dark:bg-black bg-gray-100 text-gray-900">
           <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 ">
             <h2 className="text-xl font-semibold">
               Course Name: {name}

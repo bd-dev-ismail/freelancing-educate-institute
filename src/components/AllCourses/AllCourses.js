@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import './AllCourses.css'
 const AllCourses = ({courses}) => {
-    console.log(courses);
+    // console.log(courses);
     const { name, course_fees, student, review ,img, id} = courses;
     return (
       <div>
-        <div className="all-courses   col-span-1">
+        <div className="all-courses flex justify-between">
           <div className="course-title p-2 ">
             <div className="text-2xl hover:text-secondary-focus">
               {" "}
               <Link to={`/courses/${id}`}>{name}</Link>
             </div>
           </div>
-          <div className="course-card col-span-2">
+          <div className="course-card ">
             <div>
               <div className="card lg:card-side h-full bg-base-100 shadow-xl">
                 <figure>

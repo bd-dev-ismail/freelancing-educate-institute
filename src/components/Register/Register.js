@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -7,7 +8,17 @@ import login from '../../assets/login.webp'
 import { AuthContext } from '../context/UserContext/UserContext';
 const Register = () => {
   const [error, setError] = useState('');
-  const { register, updateUserProfile } = useContext(AuthContext);
+  const {
+    user,
+    register,
+    updateUserProfile,
+    loginGithub,
+    loginGoogle,
+    name,
+    setName,
+    setPhotoURL,
+    photoURL,
+  } = useContext(AuthContext);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
@@ -42,7 +53,9 @@ const Register = () => {
       .then(result=>{
         const user = result.user;
         console.log(user);
-        handalProfile(name,photoURL);
+        // updateUserProfile({name, photoURL})
+        //   .then(() => {})
+        //   .catch((error) => toast.error(error.message), { autoClose: 500 });
         navigate(from, {replace: true});
         form.reset();
         setError('');
@@ -53,15 +66,36 @@ const Register = () => {
         toast.error(error.message, {autoClose: 500})
       })
   }
-  const handalProfile = (name, photoURL)=>{
-    const profile ={
-      displayName : name,
-      photoURL: photoURL
+  useEffect(()=>{
+    if(user && user.uid){
+      updateUserProfile(name, photoURL)
+      .then(()=>{
+      navigate(from, { replace: true });
+      })
+      .catch((error)=> toast.error(error.message,{autoClose: 500}))
+    }
+  },[user, from])
+    const handalGoogle = () => {
+      loginGoogle()
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          navigate(from, { replace: true });
+          toast.success("Successfully Login With Google", { autoClose: 500 });
+        })
+        .catch((error) => toast.error(error.message, { autoClose: 500 }));
     };
-    updateUserProfile(profile)
-      .then(() => {})
-      .catch((error) => toast.error(error.message),{autoClose: 500});
-  }
+    const handalGithub = () => {
+      loginGithub()
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          navigate(from, { replace: true });
+          toast.success("Successfully Login With Github", { autoClose: 500 });
+        })
+        .catch((error) => toast.error(error.message, { autoClose: 500 }));
+    };
+
     return (
       <div>
         <body>
@@ -73,9 +107,7 @@ const Register = () => {
                   style={{
                     backgroundImage: `url(${login})`,
                   }}
-                >
-                    
-                </div>
+                ></div>
 
                 <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
                   <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
@@ -89,6 +121,7 @@ const Register = () => {
                       </label>
 
                       <input
+                        onChange={(e) => setName(e.target.value)}
                         placeholder="Enter Your Full Name"
                         required
                         type="text"
@@ -106,6 +139,7 @@ const Register = () => {
                         PhotoURL
                       </label>
                       <input
+                        onChange={(e) => setPhotoURL(e.target.value)}
                         placeholder="Enter Your Photo URL"
                         required
                         type="text"
@@ -162,9 +196,7 @@ const Register = () => {
                         name="confrimPassword"
                       />
                     </div>
-                    <div className="mb-1 sm:mb-2 text-error">
-                      {error}
-                    </div>
+                    <div className="mb-1 sm:mb-2 text-error">{error}</div>
                     <div className="mt-4 mb-2 sm:mb-4">
                       <button
                         type="submit"
@@ -180,6 +212,18 @@ const Register = () => {
                       </Link>
                     </p>
                   </form>
+                  <div className="my-3">
+                    <button
+                      onClick={handalGoogle}
+                      className="btn btn-outline btn-secondary"
+                      style={{ marginRight: "5px" }}
+                    >
+                      Login With Google
+                    </button>
+                    <button onClick={handalGithub} className="btn btn-outline">
+                      Login With Github
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

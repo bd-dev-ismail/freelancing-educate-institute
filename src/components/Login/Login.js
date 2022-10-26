@@ -127,21 +127,6 @@ const Login = () => {
                       >
                         Login
                       </button>
-                      <div className="my-3">
-                        <button
-                          onClick={handalGoogle}
-                          className="btn btn-outline btn-secondary"
-                          style={{ marginRight: "5px" }}
-                        >
-                          Login With Google
-                        </button>
-                        <button
-                          onClick={handalGithub}
-                          className="btn btn-outline"
-                        >
-                          Login With Github
-                        </button>
-                      </div>
                     </div>
                     <p className="text-xs text-gray-600 sm:text-sm">
                       New in Freelancing Educare?{" "}
@@ -150,6 +135,18 @@ const Login = () => {
                       </Link>
                     </p>
                   </form>
+                  <div className="my-3">
+                    <button
+                      onClick={handalGoogle}
+                      className="btn btn-outline btn-secondary"
+                      style={{ marginRight: "5px" }}
+                    >
+                      Login With Google
+                    </button>
+                    <button onClick={handalGithub} className="btn btn-outline">
+                      Login With Github
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

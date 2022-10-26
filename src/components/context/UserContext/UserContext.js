@@ -4,11 +4,12 @@ import app from '../../../firebase/firebase.config';
 import { createContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { current } from 'daisyui/src/colors';
 const auth = getAuth(app);
 export const AuthContext = createContext();
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
+    const [name , setName] = useState('');
+    const [photoURL, setPhotoURL] = useState('');
     const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
@@ -23,9 +24,9 @@ const UserContext = ({children}) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
     //update profile
-    const updateUserProfile = (profile)=>{
+    const updateUserProfile = (name, photoURL)=>{
         setLoading(true)
-        return updateProfile(auth.currentUser, profile)
+        return updateProfile(auth.currentUser, {displayName: name, photoURL: photoURL});
     }
     //login with google
     const loginGoogle = ()=>{
@@ -43,9 +44,9 @@ const UserContext = ({children}) => {
     //observer
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
-            if(currentUser === null || currentUser.uid){
+            
                 setUser(currentUser);
-            }
+       
             
             setLoading(false);
         })
@@ -56,6 +57,10 @@ const UserContext = ({children}) => {
     const authInfo = {
       user,
       loading,
+      name, 
+      photoURL,
+      setPhotoURL,
+      setName,
       register,
       login,
       updateUserProfile,

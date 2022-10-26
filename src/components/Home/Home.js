@@ -1,14 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Advantage from '../Advantage/Advantage';
 import { AuthContext } from '../context/UserContext/UserContext';
 
 const Home = () => {
     const data = useLoaderData();
-  
   const [error, setError] = useState('')
-  const {login} = useContext(AuthContext);
+  const { login, loginGithub, loginGoogle } = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const handalLogin = (e)=>{
     e.preventDefault();
     const form = e.target;
@@ -33,6 +35,26 @@ const Home = () => {
       toast.error(error.message, {autoClose: 500})
     })
   }
+    const handalGoogle = () => {
+      loginGoogle()
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          navigate(from, { replace: true });
+          toast.success("Successfully Login With Google", { autoClose: 500 });
+        })
+        .catch((error) => toast.error(error.message, { autoClose: 500 }));
+    };
+    const handalGithub = () => {
+      loginGithub()
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          navigate(from, { replace: true });
+          toast.success("Successfully Login With Github", { autoClose: 500 });
+        })
+        .catch((error) => toast.error(error.message, { autoClose: 500 }));
+    };
     return (
       <div>
         <div className="relative">
@@ -128,12 +150,10 @@ const Home = () => {
                           name="confrimPassword"
                         />
                       </div>
-                      <div className="mb-1 sm:mb-2 text-error">
-                        {error}
-                      </div>
+                      <div className="mb-1 sm:mb-2 text-error">{error}</div>
                       <div className="mt-4 mb-2 sm:mb-4">
                         <button
-                        onClick={handalLogin}
+                          onClick={handalLogin}
                           type="submit"
                           className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white btn btn-primary"
                         >
@@ -147,6 +167,21 @@ const Home = () => {
                         </Link>
                       </p>
                     </form>
+                    <div className="my-3">
+                      <button
+                        onClick={handalGoogle}
+                        className="btn btn-outline btn-secondary"
+                        style={{ marginRight: "5px" }}
+                      >
+                        Login With Google
+                      </button>
+                      <button
+                        onClick={handalGithub}
+                        className="btn btn-outline"
+                      >
+                        Login With Github
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -193,13 +228,13 @@ const Home = () => {
                 </div>
                 <div className="flex flex-col items-center md:flex-row">
                   <Link
-                   to="/courses"
+                    to="/courses"
                     className="btn btn-outline btn-secondary mr-3"
                   >
                     Our Courses
                   </Link>
                   <Link
-                   to="/"
+                    to="/"
                     aria-label=""
                     className="btn btn-outline btn-primary mt-2 md:mt-0"
                   >

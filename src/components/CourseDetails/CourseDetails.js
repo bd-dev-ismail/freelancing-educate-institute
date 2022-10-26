@@ -1,10 +1,19 @@
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
 import { Link, useLoaderData } from 'react-router-dom';
-
+import { jsPDF } from "jspdf";
 const CourseDetails = () => {
     const courseDetails = useLoaderData();
     const { name, course_fees, details, img, review , student, desc} = courseDetails;
+    const pdfGenerate=()=>{
+        const doc = new jsPDF("landscape", "px", "a4", "false");
+        
+        doc.addImage(img, "PNG", 65, 20, 500, 400);
+        doc.setFontSize(40);
+        doc.text(name, 35, 25);
+        
+        doc.save("details.pdf");
+    }
     return (
       <div>
         <div className="success-section">
@@ -55,17 +64,21 @@ const CourseDetails = () => {
                     </div>
                   </div>
                   <p className="text-base text-gray-700 md:text-lg">{desc}</p>
-                  <p className='text-xl my-2'>
-                    Course Fee: <span className='font-bold'>${course_fees}</span>
+                  <p className="text-xl my-2">
+                    Course Fee:{" "}
+                    <span className="font-bold">${course_fees}</span>
                   </p>
                 </div>
                 <div className="flex flex-col items-center md:flex-row">
-                  <Link
-                    to="/courses"
-                    className="btn btn-outline btn-secondary mr-3"
-                  >
-                    Download PDF
-                  </Link>
+                  
+                    <button
+                      className="btn btn-outline btn-secondary mr-3"
+                      onClick={pdfGenerate}
+                    >
+                      {" "}
+                      Download PDF
+                    </button>
+                 
                   <Link
                     to="/"
                     aria-label=""

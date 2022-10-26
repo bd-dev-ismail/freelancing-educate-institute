@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import register from '../../assets/register.jpg'
+import { AuthContext } from '../context/UserContext/UserContext';
 const Login = () => {
+  const [error, setError] = useState('')
+  const {login} = useContext(AuthContext);
+  const handalLogin = (e)=>{
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confrimPassword = form.confrimPassword.value;
+    if(password !== confrimPassword){
+      setError("Password not Matched");
+      toast.error("Password not Matched");
+      return;
+    }
+    login(email, password)
+    .then(result=>{
+      const user = result.user;
+      console.log(user);
+      setError('')
+      toast.success("Successfully Login Your Account", {autoClose: 500});
+      form.reset();
+    })
+    .catch(error=>{
+      setError(error.message);
+      toast.error(error.message, {autoClose: 500})
+    })
+  }
     return (
       <div>
         <body>
@@ -17,7 +46,7 @@ const Login = () => {
 
                 <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
                   <h3 class="pt-4 text-2xl text-center">Login Your Account!</h3>
-                  <form>
+                  <form onSubmit={handalLogin}>
                     <div className="mb-1 sm:mb-2">
                       <label
                         htmlFor="email"
@@ -67,7 +96,7 @@ const Login = () => {
                       />
                     </div>
                     <div className="mb-1 sm:mb-2 text-error">
-                      There are Error Showing
+                      {error}
                     </div>
                     <div className="mt-4 mb-2 sm:mb-4">
                       <button

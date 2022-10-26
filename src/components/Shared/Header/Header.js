@@ -67,8 +67,12 @@ const Header = () => {
                     Blogs
                   </Link>
                 </li>
-                {/* {user ? (
-                  <p>{user.displayName}</p>
+                {user?.email ? (
+                  <div className="avatar online">
+                    <div className="w-12 rounded-full">
+                      <img src="https://placeimg.com/192/192/people" alt=".." />
+                    </div>
+                  </div>
                 ) : (
                   <li>
                     <Link
@@ -80,17 +84,7 @@ const Header = () => {
                       Login
                     </Link>
                   </li>
-                )} */}
-                <li>
-                  <Link
-                    to="/login"
-                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-fuchsia-600 focus:shadow-outline focus:outline-none"
-                    aria-label="Sign up"
-                    title="Sign up"
-                  >
-                    Login
-                  </Link>
-                </li>
+                )}
               </ul>
               <div className="lg:hidden">
                 <button

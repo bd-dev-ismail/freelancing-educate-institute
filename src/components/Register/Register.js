@@ -2,6 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import login from '../../assets/login.webp'
 import { AuthContext } from '../context/UserContext/UserContext';
 const Register = () => {
@@ -16,13 +17,21 @@ const Register = () => {
     const password = form.password.value;
     const confrimPassword = form.confrimPassword.value;
     if(password !== confrimPassword){
-      return setError('Password Not Matched');
+      setError('Password Not Matched');
+      toast.error('Password does not Matched', {autoClose: 500});
+      return
     }
-    if (!password.length < 6) {
-      return setError("Password At Lease 6 Characters");
+    if (password.length < 6) {
+       setError("Password At Lease 6 Characters");
+      toast.error("Password At Lease 6 Characters", { autoClose: 500 });
+      return;
     }
     if (!/(?=.*[A-Z])/.test(password)){
-      return setError(" Password should contains a Capital letter");
+      setError(" Password should contains a Capital letter");
+      toast.error("Password should contains a Capital letter", {
+        autoClose: 500,
+      });
+      return; 
     }
     
       console.log(name, photoURL, email, password, confrimPassword);
@@ -32,8 +41,12 @@ const Register = () => {
         console.log(user);
         form.reset();
         setError('');
+        toast.success('Your account create successfully')
       })
-      .catch(error=>console.error(error))
+      .catch(error=>{
+        setError(error.message);
+        toast.error(error.message, {autoClose: 500})
+      })
   }
     return (
       <div>

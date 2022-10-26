@@ -12,7 +12,7 @@ const AllCourses = ({courses}) => {
       <div>
         <div
           onClick={handalDetails}
-          className="card w-96 bg-base-100 shadow-2xl mb-5 cursor-pointer dark:text-black"
+          className="card w-80 bg-base-100 shadow-2xl mb-5 cursor-pointer dark:text-black"
         >
           <figure>
             <img src={img} alt="Shoes" />
@@ -20,7 +20,7 @@ const AllCourses = ({courses}) => {
           <div className="card-body">
             <h2 className="card-title ">
               {name}
-              <div className="badge badge-secondary">{student} Students</div>
+              <div className="badge badge-secondary">{student}Enroll</div>
             </h2>
             <div className="flex items-center">
               <p className="text-warning flex">
@@ -29,7 +29,7 @@ const AllCourses = ({courses}) => {
                 <FaStar />
                 <FaStar />
               </p>
-              <p className="font-semibold" style={{ marginLeft: "-150px" }}>
+              <p className="font-semibold" style={{ marginLeft: "-50px" }}>
                 {review} Reviews
               </p>
             </div>

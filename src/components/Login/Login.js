@@ -54,23 +54,26 @@ const Login = () => {
         navigate(from, { replace: true });
         toast.success("Successfully Login With Github", { autoClose: 500 });
       })
-      .catch((error) => toast.error(error.message, { autoClose: 500 }));
+      .catch((error) => {
+        toast.error(error.message, { autoClose: 500 });
+        console.error(error)
+      });
   }
     return (
       <div>
         <body>
-          <div class="container mx-auto">
-            <div class="flex justify-center px-6 my-12">
-              <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+          <div className="container mx-auto">
+            <div className="flex justify-center px-6 my-12">
+              <div className="w-full xl:w-3/4 lg:w-11/12 flex">
                 <div
-                  class="w-full h-auto bg-gray-400 hidden lg:block lg:w-full bg-cover rounded-l-lg"
+                  className="w-full h-auto bg-gray-400 hidden lg:block lg:w-full bg-cover rounded-l-lg"
                   style={{
                     backgroundImage: `url(${register})`,
                   }}
                 ></div>
 
-                <div class="w-full lg:w-7/12 dark:bg-black dark:text-white bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
-                  <h3 class="pt-4 text-2xl text-center">Login Your Account!</h3>
+                <div className="w-full lg:w-7/12 dark:bg-black dark:text-white bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
+                  <h3 className="pt-4 text-2xl text-center">Login Your Account!</h3>
                   <form onSubmit={handalLogin}>
                     <div className="mb-1 sm:mb-2">
                       <label
@@ -139,7 +142,7 @@ const Login = () => {
                   <div className="my-3">
                     <button
                       onClick={handalGoogle}
-                      className="btn btn-outline btn-secondary"
+                      className="btn btn-outline btn-secondary mb-3"
                       style={{ marginRight: "5px" }}
                     >
                       Login With Google

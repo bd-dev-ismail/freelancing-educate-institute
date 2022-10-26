@@ -8,23 +8,27 @@ import login from '../../assets/login.webp'
 import { AuthContext } from '../context/UserContext/UserContext';
 const Register = () => {
   const [error, setError] = useState('');
-  const [name, setName] = useState('');
-  const [photoURL, setPhotoURL] = useState('');
+  
   const {
+    user,
     register,
-
+    name,
+    setName,
+    photoURL,
+    setPhotoURL,
     loginGithub,
     loginGoogle,
     updateUserProfile,
   } = useContext(AuthContext);
+  const profile = { displayName: name, photoURL: photoURL };
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
   const handalRegister = (e)=>{
     e.preventDefault();
     const form = e.target;
-    const name = form.fullName.value;
-    const photoURL = form.photoURL.value;
+    // const name = form.fullName.value;
+    // const photoURL = form.photoURL.value;
     const email = form.email.value;
     const password = form.password.value;
     const confrimPassword = form.confrimPassword.value;
@@ -53,8 +57,6 @@ const Register = () => {
       //  navigate(from, { replace: true });
         form.reset();
         setError('');
-        // handalUpdateUserProfile(name, photoURL);
-        // const profile = {name, photoURL}
         toast.success('Your account create successfully', {autoClose: 500})
       })
       .catch(error=>{
@@ -62,19 +64,17 @@ const Register = () => {
         toast.error(error.message, {autoClose: 500})
       })
   }
-  
-  
- useEffect(()=>{
-     const profile = {
-       displayName: name,
-       photoURL: photoURL,
-     };
-     updateUserProfile(profile)
-       .then(() => {
-         navigate(from, { replace: true });
-       })
-       .catch((error) => console.error(error));
- },[from, navigate, updateUserProfile, name, photoURL])
+  useEffect(()=>{
+    if(user && user.uid){
+      
+      updateUserProfile(profile)
+      .then(()=>{
+        navigate(from, {replace: true})
+      })
+      .catch(error=>console.error(error))
+    }
+  },[from, navigate, profile, updateUserProfile, user])
+
   
     const handalGoogle = () => {
       loginGoogle()
@@ -100,18 +100,18 @@ const Register = () => {
     return (
       <div>
         <body>
-          <div class="container mx-auto">
-            <div class="flex justify-center px-6 my-12">
-              <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+          <div className="container mx-auto">
+            <div className="flex justify-center px-6 my-12">
+              <div className="w-full xl:w-3/4 lg:w-11/12 flex">
                 <div
-                  class="w-full h-auto bg-gray-400 hidden lg:block lg:w-full bg-cover rounded-l-lg"
+                  className="w-full h-auto bg-gray-400 hidden lg:block lg:w-full bg-cover rounded-l-lg"
                   style={{
                     backgroundImage: `url(${login})`,
                   }}
                 ></div>
 
-                <div class="w-full lg:w-7/12 dark:bg-black dark:text-white bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
-                  <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
+                <div className="w-full lg:w-7/12 dark:bg-black dark:text-white bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
+                  <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
                   <form onSubmit={handalRegister}>
                     <div className="mb-1 sm:mb-2">
                       <label
@@ -216,7 +216,7 @@ const Register = () => {
                   <div className="my-3">
                     <button
                       onClick={handalGoogle}
-                      className="btn btn-outline btn-secondary"
+                      className="btn btn-outline btn-secondary mb-3"
                       style={{ marginRight: "5px" }}
                     >
                       Login With Google

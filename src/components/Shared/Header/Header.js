@@ -29,7 +29,7 @@ const Header = () => {
     return (
       <div>
         <div className="bg-indigo-700 dark:bg-black fixed w-full top-0 z-10">
-          <div className="px-4 py-5  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+          <div className="px-4 py-3  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
             <div className="relative flex items-center justify-between">
               <Link
                 to="/"
@@ -87,7 +87,7 @@ const Header = () => {
                     Blogs
                   </Link>
                 </li>
-                {user?.uid ? (
+                {user?.email ? (
                   <>
                     <li>
                       <Link
@@ -100,23 +100,17 @@ const Header = () => {
                         Logout
                       </Link>
                     </li>
-                    <div class="w-8 relative group">
-                      {user.photoURL ? (
-                        <img
-                          src={user.photoURL}
-                          alt=".."
-                          className="rounded-full cursor-pointer"
-                          title={user.displayName}
-                        />
-                      ) : (
-                        <FaUser
-                          className="w-12 h-8 text-white cursor-pointer"
-                          title={user.displayName}
-                        />
-                      )}
-                      {/* <div class="opacity-0 group-hover:opacity-100 duration-300 absolute bottom-2 inset-x-[90px] bottom-0 flex justify-center items-end  text-xl w-[150px]  text-white font-semibold">
-                        {user?.displayName}
-                      </div> */}
+                    <div className="w-8 relative group cursor-pointer">
+                      <img
+                        src={
+                          user?.photoURL
+                            ? user?.photoURL
+                            : "https://i.pinimg.com/474x/4b/71/f8/4b71f8137985eaa992d17a315997791e.jpg"
+                        }
+                        title={user?.displayName ? user?.displayName : 'No Name Found'}
+                        alt=""
+                        className=" rounded-full"
+                      />
                     </div>
                   </>
                 ) : (

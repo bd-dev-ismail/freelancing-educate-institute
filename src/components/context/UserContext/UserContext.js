@@ -9,6 +9,8 @@ export const AuthContext = createContext();
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [name, setName] = useState("");
+    const [photoURL, setPhotoURL] = useState("");
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
     //create user
@@ -48,17 +50,17 @@ const UserContext = ({children}) => {
             if(currentUser == null || currentUser.email){
                 setUser(currentUser);
             }
-                
-       
-            
-            setLoading(false);
-        })
+              setLoading(false);   
+       })
         return () => unsubscribe();
     },[])
     const authInfo = {
       user,
       loading,
-
+      name, 
+      setName,
+      photoURL,
+      setPhotoURL,
       register,
       login,
       logout,

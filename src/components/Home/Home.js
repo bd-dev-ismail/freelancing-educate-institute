@@ -27,6 +27,7 @@ const Home = () => {
       const user = result.user;
       console.log(user);
       setError('')
+      navigate(from, {replace: true}); 
       toast.success("Successfully Login Your Account", {autoClose: 500});
       form.reset();
     })
@@ -66,7 +67,7 @@ const Home = () => {
           <div className="relative bg-gray-900  bg-opacity-75">
             <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
               <div className="flex flex-col items-center justify-between xl:flex-row">
-                <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
+                <div className="w-full max-w-xl mt-6 mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
                   <p className="badge badge-secondary dark:badge-primary">
                     Best IT Training Institute in the country
                   </p>
@@ -170,7 +171,7 @@ const Home = () => {
                     <div className="my-3">
                       <button
                         onClick={handalGoogle}
-                        className="btn btn-outline btn-secondary  "
+                        className="btn btn-outline btn-secondary  mb-3"
                         style={{ marginRight: "5px" }}
                       >
                         Login With Google

@@ -100,7 +100,7 @@ const CourseDetails = () => {
               <div className="relative lg:w-1/2">
                 <img
                   className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
-                  src={img}
+                  src={img ? img : "https://i.ibb.co/sPgWYJB/graphic.jpg"}
                   alt=".."
                 />
               </div>

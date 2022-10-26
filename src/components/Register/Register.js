@@ -1,7 +1,40 @@
 import React from 'react';
+import { useContext } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import login from '../../assets/login.webp'
+import { AuthContext } from '../context/UserContext/UserContext';
 const Register = () => {
+  const [error, setError] = useState('');
+  const {register} = useContext(AuthContext);
+  const handalRegister = (e)=>{
+    e.preventDefault();
+    const form = e.target;
+    const name = form.fullName.value;
+    const photoURL = form.photoURL.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confrimPassword = form.confrimPassword.value;
+    if(password !== confrimPassword){
+      return setError('Password Not Matched');
+    }
+    if (!password.length < 6) {
+      return setError("Password At Lease 6 Characters");
+    }
+    if (!/(?=.*[A-Z])/.test(password)){
+      return setError(" Password should contains a Capital letter");
+    }
+    
+      console.log(name, photoURL, email, password, confrimPassword);
+      register(email, password)
+      .then(result=>{
+        const user = result.user;
+        console.log(user);
+        form.reset();
+        setError('');
+      })
+      .catch(error=>console.error(error))
+  }
     return (
       <div>
         <body>
@@ -19,7 +52,7 @@ const Register = () => {
 
                 <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none border shadow-2xl">
                   <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
-                  <form>
+                  <form onSubmit={handalRegister}>
                     <div className="mb-1 sm:mb-2">
                       <label
                         htmlFor="fullName"
@@ -103,7 +136,7 @@ const Register = () => {
                       />
                     </div>
                     <div className="mb-1 sm:mb-2 text-error">
-                      There are Error Showing
+                      {error}
                     </div>
                     <div className="mt-4 mb-2 sm:mb-4">
                       <button

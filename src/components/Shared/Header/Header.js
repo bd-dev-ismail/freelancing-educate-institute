@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
+import { AuthContext } from '../../context/UserContext/UserContext';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const {user} = useContext(AuthContext);
     return (
       <div>
         <div className="bg-indigo-700">
@@ -64,6 +67,20 @@ const Header = () => {
                     Blogs
                   </Link>
                 </li>
+                {/* {user ? (
+                  <p>{user.displayName}</p>
+                ) : (
+                  <li>
+                    <Link
+                      to="/login"
+                      className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-fuchsia-600 focus:shadow-outline focus:outline-none"
+                      aria-label="Sign up"
+                      title="Sign up"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                )} */}
                 <li>
                   <Link
                     to="/login"

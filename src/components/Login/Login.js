@@ -6,7 +6,7 @@ import register from '../../assets/register.jpg'
 import { AuthContext } from '../context/UserContext/UserContext';
 const Login = () => {
   const [error, setError] = useState('')
-  const {login} = useContext(AuthContext);
+  const { login, loginGoogle , loginGithub} = useContext(AuthContext);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
@@ -34,6 +34,26 @@ const Login = () => {
       setError(error.message);
       toast.error(error.message, {autoClose: 500})
     })
+  }
+  const handalGoogle = ()=>{
+    loginGoogle()
+    .then(result=>{
+      const user = result.user;
+      console.log(user);
+      navigate(from, { replace: true });
+      toast.success('Successfully Login With Google', {autoClose: 500})
+    })
+    .catch((error)=>toast.error(error.message, {autoClose: 500}))
+  }
+  const handalGithub = ()=>{
+    loginGithub()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+        toast.success("Successfully Login With Github", { autoClose: 500 });
+      })
+      .catch((error) => toast.error(error.message, { autoClose: 500 }));
   }
     return (
       <div>
@@ -99,9 +119,7 @@ const Login = () => {
                         name="confrimPassword"
                       />
                     </div>
-                    <div className="mb-1 sm:mb-2 text-error">
-                      {error}
-                    </div>
+                    <div className="mb-1 sm:mb-2 text-error">{error}</div>
                     <div className="mt-4 mb-2 sm:mb-4">
                       <button
                         type="submit"
@@ -109,6 +127,21 @@ const Login = () => {
                       >
                         Login
                       </button>
+                      <div className="my-3">
+                        <button
+                          onClick={handalGoogle}
+                          className="btn btn-outline btn-secondary"
+                          style={{ marginRight: "5px" }}
+                        >
+                          Login With Google
+                        </button>
+                        <button
+                          onClick={handalGithub}
+                          className="btn btn-outline"
+                        >
+                          Login With Github
+                        </button>
+                      </div>
                     </div>
                     <p className="text-xs text-gray-600 sm:text-sm">
                       New in Freelancing Educare?{" "}

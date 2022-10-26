@@ -74,7 +74,7 @@ const Register = () => {
          navigate(from, { replace: true });
        })
        .catch((error) => console.error(error));
- },[from, navigate, updateUserProfile])
+ },[from, navigate, updateUserProfile, name, photoURL])
   
     const handalGoogle = () => {
       loginGoogle()

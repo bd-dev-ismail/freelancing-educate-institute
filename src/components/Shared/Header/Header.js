@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import logo from '../../../assets/logo.png';
 import { AuthContext } from '../../context/UserContext/UserContext';
-import { FaUser, IconName } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { useEffect } from 'react';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,8 +28,8 @@ const Header = () => {
     }, [theme]);
     return (
       <div>
-        <div className="bg-indigo-700 dark:bg-black">
-          <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+        <div className="bg-indigo-700 dark:bg-black fixed w-full top-0 z-10">
+          <div className="px-4 py-5  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
             <div className="relative flex items-center justify-between">
               <Link
                 to="/"
@@ -132,7 +132,9 @@ const Header = () => {
                   </li>
                 )}
                 <li>
-                  <button onClick={()=> toogleTheme()} className='btn'>Toggle Theme</button>
+                  <button onClick={() => toogleTheme()} className="btn">
+                    Toggle Theme
+                  </button>
                 </li>
               </ul>
               <div className="lg:hidden">
@@ -142,7 +144,7 @@ const Header = () => {
                   className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline"
                   onClick={() => setIsMenuOpen(true)}
                 >
-                  <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
+                  <svg className="w-5  text-white" viewBox="0 0 24 24">
                     <path
                       fill="currentColor"
                       d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
@@ -158,8 +160,8 @@ const Header = () => {
                   </svg>
                 </button>
                 {isMenuOpen && (
-                  <div className="absolute top-0 left-0 w-full">
-                    <div className="p-5 bg-white border rounded shadow-sm">
+                  <div className="absolute top-0 left-0 w-full ">
+                    <div className="p-5 bg-white dark:bg-black dark:text-white border rounded shadow-sm">
                       <div className="flex items-center justify-between mb-4">
                         <div>
                           <Link
@@ -173,7 +175,7 @@ const Header = () => {
                               alt="Freelancing Educare Institute"
                               style={{ width: "50px", height: "50px" }}
                             />
-                            <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                            <span className="ml-2 text-xl font-bold tracking-wide dark:text-white  text-gray-800 uppercase">
                               Freelancing Educare Institute
                             </span>
                           </Link>
@@ -186,7 +188,7 @@ const Header = () => {
                             onClick={() => setIsMenuOpen(false)}
                           >
                             <svg
-                              className="w-5 text-gray-600"
+                              className="w-5 dark:text-white text-gray-600"
                               viewBox="0 0 24 24"
                             >
                               <path
@@ -204,7 +206,7 @@ const Header = () => {
                               to="/"
                               aria-label="Our product"
                               title="Our product"
-                              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                             >
                               Home
                             </Link>
@@ -214,7 +216,7 @@ const Header = () => {
                               to="/courses"
                               aria-label="Our product"
                               title="Our product"
-                              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                             >
                               Courses
                             </Link>
@@ -224,7 +226,7 @@ const Header = () => {
                               to="/faq"
                               aria-label="Product pricing"
                               title="Product pricing"
-                              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                             >
                               FAQ
                             </Link>
@@ -234,7 +236,7 @@ const Header = () => {
                               to="/blog"
                               aria-label="About us"
                               title="About us"
-                              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                             >
                               Blogs
                             </Link>
@@ -242,12 +244,20 @@ const Header = () => {
                           <li>
                             <Link
                               to="/login"
-                              className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                              className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-primary"
                               aria-label="Sign up"
                               title="Sign up"
                             >
                               Login
                             </Link>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => toogleTheme()}
+                              className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn "
+                            >
+                              Toggle Theme
+                            </button>
                           </li>
                         </ul>
                       </nav>

@@ -2,6 +2,7 @@ import React from 'react';
 import { FaStar } from 'react-icons/fa';
 import { Link, useLoaderData } from 'react-router-dom';
 import { jsPDF } from "jspdf";
+import { useEffect } from 'react';
 const CourseDetails = () => {
     const courseDetails = useLoaderData();
 
@@ -24,6 +25,9 @@ const CourseDetails = () => {
         
         doc.save("details.pdf");
     }
+    useEffect(()=>{
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },[])
     return (
       <div className="dark:bg-black">
         <div className="success-section">

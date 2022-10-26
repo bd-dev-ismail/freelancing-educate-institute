@@ -4,7 +4,17 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { jsPDF } from "jspdf";
 const CourseDetails = () => {
     const courseDetails = useLoaderData();
-    const { name, course_fees, details, img, review , student, desc} = courseDetails;
+
+    const {
+      name,
+      course_fees,
+      details,
+      img,
+      review,
+      student,
+      desc,
+      category_id,
+    } = courseDetails;
     const pdfGenerate=()=>{
         const doc = new jsPDF("landscape", "px", "a4", "false");
         
@@ -70,17 +80,16 @@ const CourseDetails = () => {
                   </p>
                 </div>
                 <div className="flex flex-col items-center md:flex-row">
-                  
-                    <button
-                      className="btn btn-outline btn-secondary mr-3"
-                      onClick={pdfGenerate}
-                    >
-                      {" "}
-                      Download PDF
-                    </button>
-                 
+                  <button
+                    className="btn btn-outline btn-secondary mr-3"
+                    onClick={pdfGenerate}
+                  >
+                    {" "}
+                    Download PDF
+                  </button>
+
                   <Link
-                    to="/"
+                    to={`/checkout/${category_id}`}
                     aria-label=""
                     className="btn btn-outline btn-primary mt-2 md:mt-0"
                   >
@@ -92,7 +101,7 @@ const CourseDetails = () => {
                 <img
                   className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
                   src={img}
-                  alt=""
+                  alt=".."
                 />
               </div>
             </div>

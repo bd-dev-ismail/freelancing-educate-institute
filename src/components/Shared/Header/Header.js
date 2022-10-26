@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import logo from '../../../assets/logo.png';
 import { AuthContext } from '../../context/UserContext/UserContext';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const {user} = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
+    const handalLogout = ()=>{
+      logout()
+      .then(()=>{toast.warning('Successfully Logout', {autoClose: 500})})
+      .catch(error=>{toast.error(error.message)})
+    }
+
     return (
       <div>
         <div className="bg-indigo-700">
@@ -67,7 +74,7 @@ const Header = () => {
                     Blogs
                   </Link>
                 </li>
-                {user?.email ? (
+                {user?.uid ? (
                   <>
                     <li>
                       <Link
@@ -76,19 +83,17 @@ const Header = () => {
                         aria-label="Sign up"
                         title="Sign up"
                       >
-                        Logout
+                        <button onClick={handalLogout}>Logout</button>
                       </Link>
                     </li>
-                    <div class="w-12  relative group">
+                    <div class="w-8 relative group">
                       <img
-                        src="https://placeimg.com/192/192/people"
+                        src={user.photoURL || "https://placeimg.com/192/192/people"}
                         alt=".."
                         className="rounded-full"
                       />
                       <div class="opacity-0 group-hover:opacity-100 duration-300 absolute bottom-2 inset-x-[90px] bottom-0 flex justify-center items-end  text-xl w-[150px]  text-white font-semibold">
-                        {user?.displayName
-                          ? user?.displayName
-                          : "No Name Found"}
+                        {user?.displayName}
                       </div>
                     </div>
                   </>

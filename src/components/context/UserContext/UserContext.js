@@ -1,29 +1,49 @@
 import React from 'react';
-import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
+import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile} from 'firebase/auth';
 import app from '../../../firebase/firebase.config';
 import { createContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { current } from 'daisyui/src/colors';
 const auth = getAuth(app);
 export const AuthContext = createContext();
 const UserContext = ({children}) => {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     //create user
     const register = (email, password) =>{
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
     //signin user
     const login = (email, password) =>{
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password);
+    }
+    //update profile
+    const updateUserProfile = (profile)=>{
+        setLoading(true)
+        return updateProfile(auth.currentUser, profile)
+    }
+    //logout
+    const logout = ()=>{
+        setLoading(true)
+        return signOut(auth)
     }
     //observer
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
-            setUser(currentUser)
+            if(currentUser === null || currentUser.uid){
+                setUser(currentUser);
+            }
+            
+            setLoading(false);
         })
-        return () => unsubscribe();
+        return () => {
+            unsubscribe();
+        }
     },[])
-    const authInfo = { user, register, login };
+    const authInfo = { user,loading, register, login, updateUserProfile, logout };
     return (
             <AuthContext.Provider value={authInfo}>
                 {children}

@@ -1,13 +1,16 @@
 import React from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import login from '../../assets/login.webp'
 import { AuthContext } from '../context/UserContext/UserContext';
 const Register = () => {
   const [error, setError] = useState('');
-  const {register} = useContext(AuthContext);
+  const { register, updateUserProfile } = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const handalRegister = (e)=>{
     e.preventDefault();
     const form = e.target;
@@ -39,14 +42,25 @@ const Register = () => {
       .then(result=>{
         const user = result.user;
         console.log(user);
+        handalProfile(name,photoURL);
+        navigate(from, {replace: true});
         form.reset();
         setError('');
-        toast.success('Your account create successfully')
+        toast.success('Your account create successfully', {autoClose: 500})
       })
       .catch(error=>{
         setError(error.message);
         toast.error(error.message, {autoClose: 500})
       })
+  }
+  const handalProfile = (name, photoURL)=>{
+    const profile ={
+      displayName : name,
+      photoURL: photoURL
+    };
+    updateUserProfile(profile)
+      .then(() => {})
+      .catch((error) => toast.error(error.message),{autoClose: 500});
   }
     return (
       <div>

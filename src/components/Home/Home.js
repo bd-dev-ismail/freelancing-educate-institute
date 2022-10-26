@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Advantage from '../Advantage/Advantage';
+import { AuthContext } from '../context/UserContext/UserContext';
 
 const Home = () => {
     const data = useLoaderData();
-    // console.log(data);
+  
+  const [error, setError] = useState('')
+  const {login} = useContext(AuthContext);
+  const handalLogin = (e)=>{
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confrimPassword = form.confrimPassword.value;
+    if(password !== confrimPassword){
+      setError("Password not Matched");
+      toast.error("Password not Matched");
+      return;
+    }
+    login(email, password)
+    .then(result=>{
+      const user = result.user;
+      console.log(user);
+      setError('')
+      toast.success("Successfully Login Your Account", {autoClose: 500});
+      form.reset();
+    })
+    .catch(error=>{
+      setError(error.message);
+      toast.error(error.message, {autoClose: 500})
+    })
+  }
     return (
       <div>
         <div className="relative">
@@ -101,10 +129,11 @@ const Home = () => {
                         />
                       </div>
                       <div className="mb-1 sm:mb-2 text-error">
-                        There are Error Showing
+                        {error}
                       </div>
                       <div className="mt-4 mb-2 sm:mb-4">
                         <button
+                        onClick={handalLogin}
                           type="submit"
                           className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white btn btn-primary"
                         >

@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import register from '../../assets/register.jpg'
 import { AuthContext } from '../context/UserContext/UserContext';
 const Login = () => {
   const [error, setError] = useState('')
   const {login} = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const handalLogin = (e)=>{
     e.preventDefault();
     const form = e.target;
@@ -21,6 +24,7 @@ const Login = () => {
     login(email, password)
     .then(result=>{
       const user = result.user;
+      navigate(from, {replace: true})
       console.log(user);
       setError('')
       toast.success("Successfully Login Your Account", {autoClose: 500});

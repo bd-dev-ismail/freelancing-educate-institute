@@ -68,11 +68,30 @@ const Header = () => {
                   </Link>
                 </li>
                 {user?.email ? (
-                  <div className="avatar online">
-                    <div className="w-12 rounded-full">
-                      <img src="https://placeimg.com/192/192/people" alt=".." />
+                  <>
+                    <li>
+                      <Link
+                        to="/"
+                        className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-fuchsia-600 focus:shadow-outline focus:outline-none"
+                        aria-label="Sign up"
+                        title="Sign up"
+                      >
+                        Logout
+                      </Link>
+                    </li>
+                    <div class="w-12  relative group">
+                      <img
+                        src="https://placeimg.com/192/192/people"
+                        alt=".."
+                        className="rounded-full"
+                      />
+                      <div class="opacity-0 group-hover:opacity-100 duration-300 absolute bottom-2 inset-x-[90px] bottom-0 flex justify-center items-end  text-xl w-[150px]  text-white font-semibold">
+                        {user?.displayName
+                          ? user?.displayName
+                          : "No Name Found"}
+                      </div>
                     </div>
-                  </div>
+                  </>
                 ) : (
                   <li>
                     <Link

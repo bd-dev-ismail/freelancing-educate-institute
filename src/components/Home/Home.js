@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Advantage from '../Advantage/Advantage';
 import { AuthContext } from '../context/UserContext/UserContext';
@@ -7,16 +7,16 @@ import { AuthContext } from '../context/UserContext/UserContext';
 const Home = () => {
     const data = useLoaderData();
   const [error, setError] = useState('')
-  const { login, loginGithub, loginGoogle } = useContext(AuthContext);
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
-  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+ 
+  
   const handalLogin = (e)=>{
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     const confrimPassword = form.confrimPassword.value;
+    console.log(email, password, confrimPassword);
     if(password !== confrimPassword){
       setError("Password not Matched");
       toast.error("Password not Matched");
@@ -27,7 +27,6 @@ const Home = () => {
       const user = result.user;
       console.log(user);
       setError('')
-      navigate(from, {replace: true}); 
       toast.success("Successfully Login Your Account", {autoClose: 500});
       form.reset();
     })
@@ -36,26 +35,7 @@ const Home = () => {
       toast.error(error.message, {autoClose: 500})
     })
   }
-    const handalGoogle = () => {
-      loginGoogle()
-        .then((result) => {
-          const user = result.user;
-          console.log(user);
-          navigate(from, { replace: true });
-          toast.success("Successfully Login With Google", { autoClose: 500 });
-        })
-        .catch((error) => toast.error(error.message, { autoClose: 500 }));
-    };
-    const handalGithub = () => {
-      loginGithub()
-        .then((result) => {
-          const user = result.user;
-          console.log(user);
-          navigate(from, { replace: true });
-          toast.success("Successfully Login With Github", { autoClose: 500 });
-        })
-        .catch((error) => toast.error(error.message, { autoClose: 500 }));
-    };
+
     return (
       <div className="dark:bg-black">
         <div className="relative">
@@ -102,7 +82,7 @@ const Home = () => {
                     <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                       Login Your Account
                     </h3>
-                    <form>
+                    <form onSubmit={handalLogin}>
                       <div className="mb-1 sm:mb-2">
                         <label
                           htmlFor="email"
@@ -154,7 +134,6 @@ const Home = () => {
                       <div className="mb-1 sm:mb-2 text-error">{error}</div>
                       <div className="mt-4 mb-2 sm:mb-4">
                         <button
-                          onClick={handalLogin}
                           type="submit"
                           className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white btn btn-primary"
                         >
@@ -168,7 +147,7 @@ const Home = () => {
                         </Link>
                       </p>
                     </form>
-                    <div className="my-3">
+                    {/* <div className="my-3">
                       <button
                         onClick={handalGoogle}
                         className="btn btn-outline btn-secondary  mb-3"
@@ -182,7 +161,7 @@ const Home = () => {
                       >
                         Login With Github
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

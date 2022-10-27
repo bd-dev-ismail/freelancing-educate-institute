@@ -11,12 +11,13 @@ const Register = () => {
   
   const {
     user,
+    setUser,
     register,
     name,
     setName,
     photoURL,
     setPhotoURL,
-    loginGithub,
+    loginFacebook,
     loginGoogle,
     updateUserProfile,
   } = useContext(AuthContext);
@@ -27,8 +28,6 @@ const Register = () => {
   const handalRegister = (e)=>{
     e.preventDefault();
     const form = e.target;
-    // const name = form.fullName.value;
-    // const photoURL = form.photoURL.value;
     const email = form.email.value;
     const password = form.password.value;
     const confrimPassword = form.confrimPassword.value;
@@ -53,8 +52,8 @@ const Register = () => {
       .then(result=>{
         const user = result.user;
         console.log(user);
-       
-      //  navigate(from, { replace: true });
+        setUser(result.user);
+       navigate(from, { replace: true });
         form.reset();
         setError('');
         toast.success('Your account create successfully', {autoClose: 500})
@@ -65,15 +64,16 @@ const Register = () => {
       })
   }
   useEffect(()=>{
-    if(user && user.uid){
+    if(user && user?.uid){
       
       updateUserProfile(profile)
       .then(()=>{
+        // console.log(profile)
         navigate(from, {replace: true})
       })
       .catch(error=>console.error(error))
     }
-  },[from, navigate, profile, updateUserProfile, user])
+  },[from, navigate, profile, user, updateUserProfile])
 
   
     const handalGoogle = () => {
@@ -86,8 +86,8 @@ const Register = () => {
         })
         .catch((error) => toast.error(error.message, { autoClose: 500 }));
     };
-    const handalGithub = () => {
-      loginGithub()
+    const handalFacebook = () => {
+      loginFacebook()
         .then((result) => {
           const user = result.user;
           console.log(user);
@@ -98,7 +98,7 @@ const Register = () => {
     };
 
     return (
-      <div>
+     
         <body>
           <div className="container mx-auto">
             <div className="flex justify-center px-6 my-12">
@@ -221,8 +221,8 @@ const Register = () => {
                     >
                       Login With Google
                     </button>
-                    <button onClick={handalGithub} className="btn btn-outline btn-primary">
-                      Login With Github
+                    <button onClick={handalFacebook} className="btn btn-outline btn-primary">
+                      Login With Facebook
                     </button>
                   </div>
                 </div>
@@ -230,7 +230,7 @@ const Register = () => {
             </div>
           </div>
         </body>
-      </div>
+     
     );
 };
 

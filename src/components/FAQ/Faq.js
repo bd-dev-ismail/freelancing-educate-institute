@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Advantage from '../Advantage/Advantage';
 
 const Faq = () => {
     const data = useLoaderData();
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
     return (
       <div className="dark:bg-black ">
         <div className="container mx-auto dark:text-white">

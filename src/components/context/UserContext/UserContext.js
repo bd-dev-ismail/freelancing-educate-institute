@@ -1,5 +1,5 @@
 import React from 'react';
-import {createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth';
+import {createUserWithEmailAndPassword, FacebookAuthProvider, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth';
 import app from '../../../firebase/firebase.config';
 import { createContext } from 'react';
 import { useEffect } from 'react';
@@ -11,8 +11,11 @@ const UserContext = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [name, setName] = useState("");
     const [photoURL, setPhotoURL] = useState("");
+    const [profile , setProfile] = useState("");
+    const [profileName, setProfileName] = useState("");
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
+    const facebookProvider = new FacebookAuthProvider();
     //create user
     const register = (email, password) =>{
         setLoading(true);
@@ -30,6 +33,10 @@ const UserContext = ({children}) => {
         setLoading(true)
         return signInWithPopup(auth, googleProvider);
     }
+    //facebook
+    const loginFacebook = ()=>{
+        return signInWithPopup(auth, facebookProvider);
+    }
     //login with github
     const loginGithub = ()=>{
         setLoading(true)
@@ -37,6 +44,11 @@ const UserContext = ({children}) => {
     }
     //update profile
     const updateUserProfile  =(profile)=>{
+        console.log(profile);
+        setLoading(true);
+        setProfile(profile.photoURL)
+        setProfileName(profile.displayName)
+        
         return updateProfile(auth.currentUser, profile)
     }
     //logout
@@ -56,8 +68,11 @@ const UserContext = ({children}) => {
     },[])
     const authInfo = {
       user,
+      setUser,
       loading,
-      name, 
+      profile,
+      name,
+      profileName,
       setName,
       photoURL,
       setPhotoURL,
@@ -67,6 +82,7 @@ const UserContext = ({children}) => {
       loginGoogle,
       loginGithub,
       updateUserProfile,
+      loginFacebook,
     };
     return (
             <AuthContext.Provider value={authInfo}>

@@ -6,7 +6,8 @@ import register from '../../assets/register.jpg'
 import { AuthContext } from '../context/UserContext/UserContext';
 const Login = () => {
   const [error, setError] = useState('')
-  const { login, loginGoogle , loginGithub} = useContext(AuthContext);
+  const { login, loginGoogle,  loginFacebook } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -46,8 +47,8 @@ const Login = () => {
     })
     .catch((error)=>toast.error(error.message, {autoClose: 500}))
   }
-  const handalGithub = ()=>{
-    loginGithub()
+  const handalFacebook = ()=>{
+    loginFacebook()
       .then((result) => {
         const user = result.user;
         console.log(user);
@@ -56,11 +57,11 @@ const Login = () => {
       })
       .catch((error) => {
         toast.error(error.message, { autoClose: 500 });
-        console.error(error)
+        console.error(error);
       });
   }
     return (
-      <div>
+    
         <body>
           <div className="container mx-auto">
             <div className="flex justify-center px-6 my-12">
@@ -147,8 +148,8 @@ const Login = () => {
                     >
                       Login With Google
                     </button>
-                    <button onClick={handalGithub} className="btn btn-outline btn-primary">
-                      Login With Github
+                    <button onClick={handalFacebook} className="btn btn-outline btn-primary">
+                      Login With Facebook
                     </button>
                   </div>
                 </div>
@@ -156,7 +157,7 @@ const Login = () => {
             </div>
           </div>
         </body>
-      </div>
+      
     );
 };
 

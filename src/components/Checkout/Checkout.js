@@ -20,12 +20,12 @@ const Checkout = () => {
                 className='w-80 h-44'
               />
               <div className="ml-5">
-                <p>
+                <h4>
                   Course Fee: <span className="font-semibold">{course_fees}$</span>
-                </p>
-                <p className="text-sm text-gray-400">
+                </h4>
+                <h4 className="text-sm text-gray-400">
                   Not including taxes and shipping costs
-                </p>
+                </h4>
               </div>
             </div>
             <div className="flex justify-end space-x-4">

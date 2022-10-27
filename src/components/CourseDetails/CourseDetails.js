@@ -2,53 +2,47 @@ import React from 'react';
 import { FaStar } from 'react-icons/fa';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useEffect } from 'react';
-import { jsPDF } from "jspdf";
+import { useReactToPrint } from 'react-to-print';
+import { useRef } from 'react';
 const CourseDetails = () => {
     const courseDetails = useLoaderData();
-
-    const {
-      name,
-      course_fees,
-      details,
-      img,
-      review,
-      student,
-      desc,
-      category_id,
-    } = courseDetails;
-  
+    const componentRef = useRef();
+  const {
+    name,
+    course_fees,
+    details,
+    img,
+    review,
+    student,
+    desc,
+    category_id,
+  } = courseDetails;
+    
+  const handalPrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
     useEffect(()=>{
       window.scrollTo({ top: 0, behavior: "smooth" });
     },[])
-    const jsPdfGenator = ()=>{
-           var doc = new jsPDF("landscape", "px", "a4", "false");
-            doc.addImage(img, 'JPG', 65, 20, 400, 400)
-            doc.addPage()
-            doc.setFontSize(38);
-            doc.text(60, 60, 'Course Name: ')
-            doc.text(60, 100, 'Freelancing Educare Intitute')
-            doc.text(250, 60, name);
-           
-            doc.save('a.pdf')
-    }
+
     return (
       <div className="dark:bg-black">
         <div className="success-section">
           <div className="px-4 py-16 mx-auto dark:text-white sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="mt-10 flex justify-center items-center">
-              <button onClick={jsPdfGenator} className="btn btn-outline btn-secondary">
+              <button onClick={handalPrint} className="btn btn-outline btn-secondary">
                 {" "}
                 Download PDF
               </button>
              
             </div>
 
-            <div className="flex flex-col items-center justify-between lg:flex-row">
+            <div ref={componentRef} className="flex flex-col items-center justify-between lg:flex-row">
               <div className="mb-10 lg:max-w-lg lg:pr-5 lg:mb-0">
                 <div className="max-w-xl mb-6">
                   <div>
                     <p className="inline-block px-3 py-px mt-6 mb-4 text-xs font-semibold badge badge-primary dark:badge-secondary">
-                      To build a career in design and color games
+                      Freelancing Educare Institute
                     </p>
                   </div>
                   <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none dark:text-white">

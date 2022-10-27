@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import {  NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import logo from '../../../assets/logo.png';
 import { AuthContext } from '../../context/UserContext/UserContext';
-import { FaUser } from "react-icons/fa";
 import { useEffect } from 'react';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [theme, setTheme] = useState("")
-    const { user, logout } = useContext(AuthContext);
+    const { user, logout, profile, profileName } = useContext(AuthContext);
     const handalLogout = ()=>{
       logout()
       .then(()=>{toast.warning('Successfully Logout', {autoClose: 500})})
@@ -118,16 +117,8 @@ const Header = () => {
                     </li>
                     <div className="w-8 relative group cursor-pointer">
                       <img
-                        src={
-                          user?.photoURL
-                            ? user?.photoURL
-                            : "https://i.pinimg.com/474x/4b/71/f8/4b71f8137985eaa992d17a315997791e.jpg"
-                        }
-                        title={
-                          user?.displayName
-                            ? user?.displayName
-                            : "No Name Found"
-                        }
+                        src={user.photoURL || profile}
+                        title={user.displayName || profileName}
                         alt=""
                         className=" rounded-full"
                       />
@@ -146,7 +137,7 @@ const Header = () => {
                   </li>
                 )}
                 <label
-                  for="Toggle1"
+                  htmlFor="Toggle1"
                   className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100"
                 >
                   <span className="text-white">Light</span>
@@ -235,7 +226,7 @@ const Header = () => {
                               className={({ isActive }) =>
                                 isActive
                                   ? "text-secondary font-medium transition-colors duration-200 "
-                                  : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                                  : "font-medium  text-black dark:text-white transition-colors duration-200 hover:text-secondary"
                               }
                             >
                               Home
@@ -249,7 +240,7 @@ const Header = () => {
                               className={({ isActive }) =>
                                 isActive
                                   ? "text-secondary font-medium transition-colors duration-200 "
-                                  : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                                  : "font-medium  text-black dark:text-white transition-colors duration-200 hover:text-secondary"
                               }
                             >
                               Courses
@@ -263,7 +254,7 @@ const Header = () => {
                               className={({ isActive }) =>
                                 isActive
                                   ? "text-secondary font-medium transition-colors duration-200 "
-                                  : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                                  : "font-medium  text-black dark:text-white transition-colors duration-200 hover:text-secondary"
                               }
                             >
                               FAQ
@@ -277,24 +268,56 @@ const Header = () => {
                               className={({ isActive }) =>
                                 isActive
                                   ? "text-secondary font-medium transition-colors duration-200 "
-                                  : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                                  : "font-medium  text-black  dark:text-white transition-colors duration-200 hover:text-secondary"
                               }
                             >
                               Blogs
                             </NavLink>
                           </li>
-                          <li>
-                            <NavLink
-                              to="/login"
-                              className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-primary"
-                              aria-label="Sign up"
-                              title="Sign up"
-                            >
-                              Login
-                            </NavLink>
-                          </li>
+                          {user?.email ? (
+                            <>
+                              <li>
+                                <NavLink
+                                  to="/"
+                                  onClick={handalLogout}
+                                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white  transition duration-200 rounded shadow-md btn btn-primary"
+                                  aria-label="Sign up"
+                                  title="Sign up"
+                                >
+                                  Logout
+                                </NavLink>
+                              </li>
+                              <div className="w-8 relative group cursor-pointer">
+                                <img
+                                  src={
+                                    user?.photoURL
+                                      ? user?.photoURL
+                                      : "https://i.pinimg.com/474x/4b/71/f8/4b71f8137985eaa992d17a315997791e.jpg"
+                                  }
+                                  title={
+                                    user?.displayName
+                                      ? user?.displayName
+                                      : "No Name Found"
+                                  }
+                                  alt=""
+                                  className=" rounded-full"
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <li>
+                              <NavLink
+                                to="/login"
+                                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-primary"
+                                aria-label="Sign up"
+                                title="Sign up"
+                              >
+                                Login
+                              </NavLink>
+                            </li>
+                          )}
                           <label
-                            for="Toggle2"
+                            htmlFor="Toggle2"
                             className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100"
                           >
                             <span>Light</span>

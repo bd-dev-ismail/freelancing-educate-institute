@@ -20,22 +20,34 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: async () => fetch("http://localhost:5000/about"),
+        loader: async () =>
+          fetch(
+            "https://freelancing-educare-institute-server.vercel.app/about"
+          ),
       },
       {
         path: "/home",
         element: <Home></Home>,
+        loader: async () =>
+          fetch(
+            "https://freelancing-educare-institute-server.vercel.app/about"
+          ),
       },
       {
         path: "/courses",
         element: <Courses></Courses>,
-        loader: async () => fetch("http://localhost:5000/courses"),
+        loader: async () =>
+          fetch(
+            "https://freelancing-educare-institute-server.vercel.app/courses"
+          ),
       },
       {
         path: "/courses/:id",
         element: <CourseDetails></CourseDetails>,
         loader: async ({ params }) =>
-          fetch(`http://localhost:5000/courses/${params.id}`),
+          fetch(
+            `https://freelancing-educare-institute-server.vercel.app/courses/${params.id}`
+          ),
       },
       {
         path: "/checkout/:id",
@@ -45,11 +57,17 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: async ({ params }) =>
-          fetch(`http://localhost:5000/checkout/${params.id}`),
+          fetch(
+            `https://freelancing-educare-institute-server.vercel.app/checkout/${params.id}`
+          ),
       },
       {
         path: "/faq",
         element: <Faq></Faq>,
+        loader: async () =>
+          fetch(
+            "https://freelancing-educare-institute-server.vercel.app/about"
+          ),
       },
       {
         path: "/blog",

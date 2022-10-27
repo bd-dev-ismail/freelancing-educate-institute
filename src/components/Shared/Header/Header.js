@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import logo from '../../../assets/logo.png';
 import { AuthContext } from '../../context/UserContext/UserContext';
@@ -31,7 +31,7 @@ const Header = () => {
         <div className="bg-indigo-700 dark:bg-black fixed w-full top-0 z-10">
           <div className="px-4 py-3  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
             <div className="relative flex items-center justify-between">
-              <Link
+              <NavLink
                 to="/"
                 aria-label="Company"
                 title="Company"
@@ -45,52 +45,68 @@ const Header = () => {
                 <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
                   Freelancing Educare Institute
                 </span>
-              </Link>
+              </NavLink>
               <ul className="flex items-center hidden space-x-8 lg:flex">
                 <li>
-                  <Link
-                    to="/"
+                  <NavLink
+                    to="/home"
                     aria-label="Our product"
                     title="Our product"
-                    className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-secondary"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-secondary font-medium transition-colors duration-200 "
+                        : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                    }
                   >
                     Home
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
+                  <NavLink
                     to="/courses"
                     aria-label="Our product"
                     title="Our product"
-                    className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-secondary"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-secondary font-medium transition-colors duration-200 "
+                        : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                    }
                   >
                     Courses
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
+                  <NavLink
                     to="/faq"
                     aria-label="Product pricing"
                     title="Product pricing"
-                    className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-secondary"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-secondary font-medium transition-colors duration-200 "
+                        : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                    }
                   >
                     FAQ
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
+                  <NavLink
                     to="/blog"
                     aria-label="About us"
                     title="About us"
-                    className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-secondary"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-secondary font-medium transition-colors duration-200 "
+                        : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                    }
                   >
                     Blogs
-                  </Link>
+                  </NavLink>
                 </li>
                 {user?.email ? (
                   <>
                     <li>
-                      <Link
+                      <NavLink
                         to="/"
                         onClick={handalLogout}
                         className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-fuchsia-600 focus:shadow-outline focus:outline-none"
@@ -98,7 +114,7 @@ const Header = () => {
                         title="Sign up"
                       >
                         Logout
-                      </Link>
+                      </NavLink>
                     </li>
                     <div className="w-8 relative group cursor-pointer">
                       <img
@@ -107,7 +123,11 @@ const Header = () => {
                             ? user?.photoURL
                             : "https://i.pinimg.com/474x/4b/71/f8/4b71f8137985eaa992d17a315997791e.jpg"
                         }
-                        title={user?.displayName ? user?.displayName : 'No Name Found'}
+                        title={
+                          user?.displayName
+                            ? user?.displayName
+                            : "No Name Found"
+                        }
                         alt=""
                         className=" rounded-full"
                       />
@@ -115,21 +135,33 @@ const Header = () => {
                   </>
                 ) : (
                   <li>
-                    <Link
+                    <NavLink
                       to="/login"
                       className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-fuchsia-600 focus:shadow-outline focus:outline-none"
                       aria-label="Sign up"
                       title="Sign up"
                     >
                       Login
-                    </Link>
+                    </NavLink>
                   </li>
                 )}
-                <li>
-                  <button onClick={() => toogleTheme()} className="btn">
-                    Toggle Theme
-                  </button>
-                </li>
+                <label
+                  for="Toggle1"
+                  className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100"
+                >
+                  <span className="text-white">Light</span>
+                  <span className="relative">
+                    <input
+                      onClick={() => toogleTheme()}
+                      id="Toggle1"
+                      type="checkbox"
+                      className="hidden peer"
+                    />
+                    <div className="w-10 h-6 rounded-full shadow-inner bg-white  dark:bg-gray-400 peer-checked:dark:bg-violet-400"></div>
+                    <div className="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto bg-gray-800 dark:bg-gray-800"></div>
+                  </span>
+                  <span className="text-white">Dark</span>
+                </label>
               </ul>
               <div className="lg:hidden">
                 <button
@@ -158,7 +190,7 @@ const Header = () => {
                     <div className="p-5 bg-white dark:bg-black dark:text-white border rounded shadow-sm">
                       <div className="flex items-center justify-between mb-4">
                         <div>
-                          <Link
+                          <NavLink
                             to="/"
                             aria-label="Company"
                             title="Company"
@@ -172,7 +204,7 @@ const Header = () => {
                             <span className="ml-2 text-xl font-bold tracking-wide dark:text-white  text-gray-800 uppercase">
                               Freelancing Educare Institute
                             </span>
-                          </Link>
+                          </NavLink>
                         </div>
                         <div>
                           <button
@@ -196,63 +228,88 @@ const Header = () => {
                       <nav>
                         <ul className="space-y-4">
                           <li>
-                            <Link
+                            <NavLink
                               to="/"
                               aria-label="Our product"
                               title="Our product"
-                              className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "text-secondary font-medium transition-colors duration-200 "
+                                  : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                              }
                             >
                               Home
-                            </Link>
+                            </NavLink>
                           </li>
                           <li>
-                            <Link
+                            <NavLink
                               to="/courses"
                               aria-label="Our product"
                               title="Our product"
-                              className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "text-secondary font-medium transition-colors duration-200 "
+                                  : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                              }
                             >
                               Courses
-                            </Link>
+                            </NavLink>
                           </li>
                           <li>
-                            <Link
+                            <NavLink
                               to="/faq"
                               aria-label="Product pricing"
                               title="Product pricing"
-                              className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "text-secondary font-medium transition-colors duration-200 "
+                                  : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                              }
                             >
                               FAQ
-                            </Link>
+                            </NavLink>
                           </li>
                           <li>
-                            <Link
+                            <NavLink
                               to="/blog"
                               aria-label="About us"
                               title="About us"
-                              className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "text-secondary font-medium transition-colors duration-200 "
+                                  : "font-medium  text-gray-100 transition-colors duration-200 hover:text-secondary"
+                              }
                             >
                               Blogs
-                            </Link>
+                            </NavLink>
                           </li>
                           <li>
-                            <Link
+                            <NavLink
                               to="/login"
                               className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-primary"
                               aria-label="Sign up"
                               title="Sign up"
                             >
                               Login
-                            </Link>
+                            </NavLink>
                           </li>
-                          <li>
-                            <button
-                              onClick={() => toogleTheme()}
-                              className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn "
-                            >
-                              Toggle Theme
-                            </button>
-                          </li>
+                          <label
+                            for="Toggle2"
+                            className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100"
+                          >
+                            <span>Light</span>
+                            <span className="relative">
+                              <input
+                                onClick={() => toogleTheme()}
+                                id="Toggle2"
+                                type="checkbox"
+                                className="hidden peer"
+                              />
+                              <div className="w-10 h-6 rounded-full shadow-inner bg-gray-400 dark:bg-gray-400 peer-checked:dark:bg-violet-400"></div>
+                              <div className="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto bg-gray-800 dark:bg-gray-800"></div>
+                            </span>
+                            <span>Dark</span>
+                          </label>
                         </ul>
                       </nav>
                     </div>

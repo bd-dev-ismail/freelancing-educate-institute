@@ -59,9 +59,9 @@ const UserContext = ({children}) => {
     //observer
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
-            if(currentUser == null || currentUser.email){
+ 
                 setUser(currentUser);
-            }
+           
               setLoading(false);   
        })
         return () => unsubscribe();

@@ -3,6 +3,7 @@ import { Link, useLoaderData} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Advantage from '../Advantage/Advantage';
 import { AuthContext } from '../context/UserContext/UserContext';
+import Count from './Count';
 
 const Home = () => {
     const data = useLoaderData();
@@ -140,28 +141,9 @@ const Home = () => {
                           Login
                         </button>
                       </div>
-                      <p className="text-xs text-gray-600 dark:text-white sm:text-sm">
-                        New In Freelancing Educare?{" "}
-                        <Link to="/register" className="btn btn-link">
-                          Create an account
-                        </Link>
-                      </p>
+                      
                     </form>
-                    {/* <div className="my-3">
-                      <button
-                        onClick={handalGoogle}
-                        className="btn btn-outline btn-secondary  mb-3"
-                        style={{ marginRight: "5px" }}
-                      >
-                        Login With Google
-                      </button>
-                      <button
-                        onClick={handalGithub}
-                        className="btn btn-outline btn-primary"
-                      >
-                        Login With Github
-                      </button>
-                    </div> */}
+                   
                   </div>
                 </div>
               </div>
@@ -231,6 +213,9 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          <Count/>
         </div>
       </div>
     );
